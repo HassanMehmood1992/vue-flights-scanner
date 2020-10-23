@@ -26,7 +26,7 @@
                   v-model="params.fromCity"
                   required
                   placeholder="Search by name"
-                  :rules="[ value => !!value || 'The specified field is required.' ]"
+                  :rules="[ value => !!value || 'From city is required.' ]"
                 >
                 </city-search>
               </v-flex>
@@ -37,7 +37,7 @@
                   dense
                   outlined
                   required
-                     :rules="[ value => !!value || 'The specified field is required.' ]"
+                     :rules="[ value => !!value || 'To city is required.' ]"
                   placeholder="Search by name"
                 >
                 </city-search>
@@ -57,7 +57,7 @@
                       v-model="params.fromDate"
                       readonly
                       outlined
-                         :rules="[ value => !!value || 'The specified field is required.' ]"
+                         :rules="[ value => !!value || 'Departure date is required.' ]"
                       placeholder="Select departure date"
                       dense
                       append-icon="mdi-calendar"

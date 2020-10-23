@@ -37,16 +37,21 @@
       <span v-if="required" class="red--text">*</span>
     </template>
 
-    <!-- <template v-slot:item="data">
-      <v-layout column>
-        <div class="caption primary--text font-weight-medium">
-          {{ data.item.icao ? data.item.icao : ""}}
-          {{ data.item.icao && (data.item.iata || data.item.faaCode) ? " / " : "" }}
-          {{ data.item.iata ? data.item.iata : data.item.faaCode ? data.item.faaCode : "" }}
+    <template v-slot:item="data">
+      <v-layout column class="py-2">
+        <div class="caption secondary--text font-weight-medium">
+          {{ data.item.PlaceName ? data.item.PlaceName : "" }}
         </div>
-        <div class="caption grey--text">{{ data.item.cityCountryName}}</div>
+        <div class="caption grey--text">
+          {{
+            _.join(
+              _.filter([data.item.PlaceId, data.item.CountryName], _.identity),
+              " / "
+            )
+          }}
+        </div>
       </v-layout>
-    </template> -->
+    </template>
   </v-autocomplete>
 </template>
 
@@ -56,96 +61,95 @@ export default {
   props: {
     classNames: {
       type: String,
-      default: null,
+      default: null
     },
     clearable: {
       type: Boolean,
-      default: false,
+      default: false
     },
     color: {
       type: String,
-      default: null,
+      default: null
     },
     dark: {
       type: Boolean,
-      default: false,
+      default: false
     },
     deletablechips: {
       type: Boolean,
-      default: false,
+      default: false
     },
     dense: {
       type: Boolean,
-      default: false,
+      default: false
     },
     flat: {
       type: Boolean,
-      default: false,
+      default: false
     },
     forFilter: {
       type: Boolean,
-      default: false,
+      default: false
     },
     hideDetails: {
       type: Boolean,
-      default: false,
+      default: false
     },
     hint: {
       type: String,
-      default: null,
+      default: null
     },
     label: {
       type: String,
-      default: null,
+      default: null
     },
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     },
     outlined: {
       type: Boolean,
-      default: false,
+      default: false
     },
     placeholder: {
       type: String,
-      default: null,
+      default: null
     },
     icon: {
       type: String,
-      default: null,
+      default: null
     },
     returnObject: {
       type: Boolean,
-      default: false,
+      default: false
     },
     required: {
       type: Boolean,
-      default: false,
+      default: false
     },
     rounded: {
       type: Boolean,
-      default: false,
+      default: false
     },
     rules: {
       type: Array,
-      default: function () {
+      default: function() {
         return [];
-      },
+      }
     },
     solo: {
       type: Boolean,
-      default: false,
+      default: false
     },
     value: {
       type: [String, Object, Array],
-      default: null,
-    },
-
+      default: null
+    }
   },
   data: () => ({
     items: [],
     loading: false,
-    searchInput: "",
+    searchInput: ""
   }),
   mounted() {},
 
@@ -158,8 +162,8 @@ export default {
         if (_.isUndefined(v)) v = null;
         this.searchInput = "";
         this.$emit("onSelect", v);
-      },
-    },
+      }
+    }
   },
 
   watch: {
@@ -185,25 +189,24 @@ export default {
         if (this.searchInput) {
           this.getItems(this.searchInput);
         }
-      },
-    },
+      }
+    }
   },
 
   methods: {
-    getItems: _.debounce(function (val) {
+    getItems: _.debounce(function(val) {
       if (val && val.length >= 2) {
         this.loading = true;
         axios
           .get(`autosuggest/v1.0/AE/AED/en-US/?query=${val}`)
-          .then((response) => {
-              this.items = response.data.Places
+          .then(response => {
+            this.items = response.data.Places;
           })
           .finally(() => {
             this.loading = false;
           });
       }
-    }, 1000),
- 
-  },
+    }, 1000)
+  }
 };
 </script>

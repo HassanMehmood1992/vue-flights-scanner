@@ -3,6 +3,7 @@ import moment from "moment";
 import vueMoment from "vue-moment";
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import VueLodash from "vue-lodash";
+import lodash from 'lodash';
 import citySearch from "@/components/citySearch";
 import countrySelect from "@/components/countrySelect";
 import '@mdi/font/css/materialdesignicons.css'
@@ -12,7 +13,8 @@ Vue.prototype.$appURL = process.env.NUXT_ENV_ENVIRONMENT == 'production' ? proce
 window.moment = moment;
 
 Vue.use(vueMoment);
-Vue.use(VueLodash);
+
+Vue.use(VueLodash, { lodash: lodash });
 Vue.component('vue-perfect-scrollbar', VuePerfectScrollbar);
 Vue.component("citySearch", citySearch);
 Vue.component("countrySelect", countrySelect);
