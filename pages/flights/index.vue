@@ -19,27 +19,29 @@
           </v-flex>
         </v-card-text>
         <v-card-text class="py-0 ">
-          <v-layout align-center>
-            <v-flex class="secondary--text font-weight-bold">
+          <v-layout row wrap align-center>
+            <v-flex md4 sm6 xs12 class="secondary--text px-2 font-weight-bold">
               Total Price: {{ total }}
             </v-flex>
-            <v-flex>
+            <v-flex md4 sm6 xs12>
               <v-checkbox
                 v-model="directFilter"
                 label="Direct"
                 @change="filterData"
               ></v-checkbox>
             </v-flex>
-            <v-flex>
+            <v-flex md4 sm6 xs12 class="px-2">
               <v-slider
                 v-model="priceRangeFilter"
-                :label="
-                  priceRangeFilter ? `Price < ${priceRangeFilter}` : 'Price'
-                "
+                label="Price"
                 :max="max"
                 hide-details=""
                 @change="filterData"
-              ></v-slider>
+              >
+                <template v-slot:thumb-label>
+                  {{ priceRangeFilter }}
+                </template>
+              </v-slider>
             </v-flex>
           </v-layout>
         </v-card-text>
