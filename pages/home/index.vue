@@ -25,8 +25,11 @@
                   outlined
                   v-model="params.fromCity"
                   required
+                  clearable
+                  @onSelect="params.fromCity = $event"
+                  @onClear="params.fromCity = null"
                   placeholder="Search by name"
-                  :rules="[ value => !!value || 'From city is required.' ]"
+                  :rules="[value => !!value || 'From city is required.']"
                 >
                 </city-search>
               </v-flex>
@@ -36,8 +39,11 @@
                   v-model="params.toCity"
                   dense
                   outlined
+                  clearable
+                  @onSelect="params.toCity = $event"
+                  @onClear="params.toCity = null"
                   required
-                     :rules="[ value => !!value || 'To city is required.' ]"
+                  :rules="[value => !!value || 'To city is required.']"
                   placeholder="Search by name"
                 >
                 </city-search>
@@ -57,7 +63,9 @@
                       v-model="params.fromDate"
                       readonly
                       outlined
-                         :rules="[ value => !!value || 'Departure date is required.' ]"
+                      :rules="[
+                        value => !!value || 'Departure date is required.'
+                      ]"
                       placeholder="Select departure date"
                       dense
                       append-icon="mdi-calendar"
@@ -71,6 +79,7 @@
                     </v-text-field>
                   </template>
                   <v-date-picker
+                  :min="minDate"
                     v-model="params.fromDate"
                     @input="fromDatePicker = false"
                   ></v-date-picker>
@@ -99,6 +108,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
+                  :min="minDate"
                     v-model="params.toDate"
                     @input="toDatePicker = false"
                   ></v-date-picker>
@@ -106,14 +116,21 @@
               </v-flex>
             </v-layout>
 
-            <v-layout align-center justify-center >
-               <v-flex  sm6 class="px-2">
-                <v-btn color="secondary" block @click="searchFlights">Search Flights</v-btn>
-                <v-btn  class="my-2" text block color="secondary" @click="$refs.searchForm.reset()"> Reset</v-btn>
+            <v-layout align-center justify-center>
+              <v-flex sm6 class="px-2">
+                <v-btn color="secondary" block @click="searchFlights"
+                  >Search Flights</v-btn
+                >
+                <v-btn
+                  class="my-2"
+                  text
+                  block
+                  color="secondary"
+                  @click="$refs.searchForm.reset()"
+                >
+                  Reset</v-btn
+                >
               </v-flex>
-              <!-- <v-flex  sm6 class="px-2">
-                
-              </v-flex> -->
             </v-layout>
           </v-form>
         </v-card-text>
@@ -126,17 +143,25 @@ export default {
   data: () => ({
     params: {
       fromDate: null,
-      toDate: null
+      toDate: null,
+      fromCity: null,
+      toCity: null
     },
     fromDatePicker: false,
     toDatePicker: false
   }),
+  computed:{
+    minDate() {
+      return this.$moment().format("YYYY-MM-DD");
+    },
+  },
   methods: {
-    searchFlights()
-    {
-      if(this.$refs.searchForm.validate())
-      {
-
+    searchFlights() {
+      if (this.$refs.searchForm.validate()) {
+        debugger;
+        let params = _.cloneDeep(this.params);
+        params = _.pickBy(params, _.identity);
+        this.$router.push({ name: "flights", query: params });
       }
     }
   }

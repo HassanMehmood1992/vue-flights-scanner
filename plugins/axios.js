@@ -18,7 +18,15 @@ export default ({ store, redirect }) => {
   };
 
   const errorHandler = error => {
+    
     store.dispatch("pageHeader/setTopLoader", false);
+    window.getApp.snackbar.config = {
+      show: true,
+      text: error,
+      color:'gred',
+      timeout:2000
+    };
+    redirect('/home')
     return error;
   };
 

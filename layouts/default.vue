@@ -15,7 +15,7 @@
         >mdi-airplane</v-icon
       >
       <v-toolbar-title v-text="title" />
-      
+
       <v-spacer></v-spacer>
 
       <div class="body-2 mr-2">
@@ -36,7 +36,9 @@
           <nuxt />
         </v-container>
       </vue-perfect-scrollbar>
+      <snackbar />
     </v-main>
+    
   </v-app>
 </template>
 <script>
@@ -70,6 +72,7 @@ export default {
   },
   created() {
     // Register the events
+    window.getApp = this;
   },
   mounted() {},
   methods: {},
