@@ -15,6 +15,12 @@
           </v-flex>
         </v-card-text>
         <v-divider />
+        <v-card-text class="text-center pb-0">
+          <v-btn-toggle class="custom-toggle" mandatory v-model="type">
+            <v-btn small value="oneway">One Way</v-btn>
+            <v-btn small value="roundtrip">Round Trip</v-btn>
+          </v-btn-toggle>
+        </v-card-text>
         <v-card-text>
           <v-form ref="searchForm" v-on:submit.prevent>
             <v-layout row>
@@ -79,13 +85,13 @@
                     </v-text-field>
                   </template>
                   <v-date-picker
-                  :min="minDate"
+                    :min="minDate"
                     v-model="params.fromDate"
                     @input="fromDatePicker = false"
                   ></v-date-picker>
                 </v-menu>
               </v-flex>
-              <v-flex sm6 class="pa-2">
+              <v-flex sm6 class="pa-2" v-if="type == 'roundtrip'">
                 <v-menu
                   v-model="toDatePicker"
                   :close-on-content-click="false"
@@ -108,7 +114,7 @@
                     ></v-text-field>
                   </template>
                   <v-date-picker
-                  :min="minDate"
+                    :min="minDate"
                     v-model="params.toDate"
                     @input="toDatePicker = false"
                   ></v-date-picker>
@@ -147,13 +153,14 @@ export default {
       fromCity: null,
       toCity: null
     },
+    type: "oneway",
     fromDatePicker: false,
     toDatePicker: false
   }),
-  computed:{
+  computed: {
     minDate() {
       return this.$moment().format("YYYY-MM-DD");
-    },
+    }
   },
   methods: {
     searchFlights() {
@@ -171,4 +178,17 @@ export default {
 .logo-flex-wrap {
   min-height: 65px;
 }
+.custom-toggle {
+    background: none !important;
+    box-shadow: none !important;
+    .v-btn {
+      opacity: initial !important;
+      background: #ffffff !important;
+      border-radius: 3px !important;
+      &.v-btn--active {
+        background: #009c92 !important;
+        color: #ffffff !important;
+      }
+    }
+  }
 </style>
