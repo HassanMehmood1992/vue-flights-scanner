@@ -61,7 +61,6 @@
                   transition="scale-transition"
                   offset-y
                   nudge-bottom="5"
-                  full-width
                   min-width="290px"
                 >
                   <template v-slot:activator="{ on }">
@@ -97,7 +96,6 @@
                   :close-on-content-click="false"
                   transition="scale-transition"
                   offset-y
-                  full-width
                   min-width="290px"
                 >
                   <template v-slot:activator="{ on }">

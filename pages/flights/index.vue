@@ -10,10 +10,38 @@
             <v-layout row class="px-2">
               <v-flex>
                 <h2>Flight Scanner</h2>
-                <p>Found <span class="secondary--text">{{data.length}}</span> flights</p>
+                <p>
+                  Found
+                  <span class="secondary--text">{{ data.length }}</span> flights
+                </p>
               </v-flex>
             </v-layout>
           </v-flex>
+        </v-card-text>
+        <v-card-text class="py-0 ">
+          <v-layout align-center>
+            <v-flex class="secondary--text font-weight-bold">
+              Total Price: {{ total }}
+            </v-flex>
+            <v-flex>
+              <v-checkbox
+                v-model="directFilter"
+                label="Direct"
+                @change="filterData"
+              ></v-checkbox>
+            </v-flex>
+            <v-flex>
+              <v-slider
+                v-model="priceRangeFilter"
+                :label="
+                  priceRangeFilter ? `Price < ${priceRangeFilter}` : 'Price'
+                "
+                :max="max"
+                hide-details=""
+                @change="filterData"
+              ></v-slider>
+            </v-flex>
+          </v-layout>
         </v-card-text>
         <v-divider />
         <v-card-text class="px-0">
@@ -21,17 +49,18 @@
             class="custom-data-table"
             :loading="fetchingLoader"
             :headers="headers"
+            v-model="selectedFlights"
+            show-select
             :items="data"
           >
             <!-- outboundleg -->
-            <template v-slot:item.outboundleg="{ item }">
+            <template v-slot:item.outboundleg.departureDate="{ item }">
               <div>
                 <v-layout column>
-                  <v-flex
-                    md4
-                    class="black--text text-h6 d-flex align-center"
-                  >
-                    <div class="text-right pr-4">AMS</div>
+                  <v-flex md4 class="black--text text-h6 d-flex align-center">
+                    <div class="text-right pr-4">
+                      {{ item.outboundleg.origin.IataCode }}
+                    </div>
                     <div class="black--text py-2 d-flex align-center">
                       <v-icon style="justify-content: flex-end; width: 10px; "
                         >mdi-circle-small</v-icon
@@ -57,7 +86,7 @@
                       >
                     </div>
                     <div class="text-left px-4" style="text-align:left;">
-                      NYC
+                      {{ item.outboundleg.destination.IataCode }}
                     </div>
                   </v-flex>
                   <v-flex class="caption ">
@@ -76,15 +105,60 @@
                     </v-chip>
                   </v-flex>
                 </v-layout>
+              </div>
+            </template>
+            <!-- inboundleg -->
+            <template v-slot:item.inboundleg.departureDate="{ item }">
+              <div v-if="item.inboundleg">
+                <v-layout column>
+                  <v-flex md4 class="black--text text-h6 d-flex align-center">
+                    <div class="text-right pr-4">
+                      {{ item.inboundleg.origin.IataCode }}
+                    </div>
+                    <div class="black--text py-2 d-flex align-center">
+                      <v-icon style="justify-content: flex-end; width: 10px; "
+                        >mdi-circle-small</v-icon
+                      >
+                      <v-icon style="justify-content: flex-end; width: 10px;"
+                        >mdi-circle-small</v-icon
+                      >
+                      <v-icon style="justify-content: flex-end; width: 10px;"
+                        >mdi-circle-small</v-icon
+                      >
+                      <v-icon style="transform: rotate(90deg)"
+                        >mdi-airplane</v-icon
+                      >
 
-                <!-- <v-layout row>
-                  <v-flex md6 class="caption grey--text px-4"
-                    >Amsterdam Airport Schiphol, Netherlands</v-flex
-                  >
-                  <v-flex md6 class="caption grey--text  px-4"
-                    >Jhon F. Kenendy, Intl. Airport, United States</v-flex
-                  >
-                </v-layout> -->
+                      <v-icon style="justify-content: flex-start; width: 10px;"
+                        >mdi-circle-small</v-icon
+                      >
+                      <v-icon style="justify-content: flex-start; width: 10px;"
+                        >mdi-circle-small</v-icon
+                      >
+                      <v-icon style="justify-content: flex-start; width: 10px;"
+                        >mdi-circle-small</v-icon
+                      >
+                    </div>
+                    <div class="text-left px-4" style="text-align:left;">
+                      {{ item.inboundleg.destination.IataCode }}
+                    </div>
+                  </v-flex>
+                  <v-flex class="caption ">
+                    <v-icon small color="secondary">mdi-calendar</v-icon>
+                    {{ item.inboundleg.departureDate | moment("DD-MMM-YYYY") }}
+                  </v-flex>
+                  <v-flex class="caption pb-2">
+                    {{ item.carriers }}
+                    <v-chip
+                      x-small
+                      color="secondary"
+                      v-for="(carrier, i) in item.inboundleg.carriers"
+                      :key="i"
+                    >
+                      {{ carrier.Name }}
+                    </v-chip>
+                  </v-flex>
+                </v-layout>
               </div>
             </template>
             <!-- direct -->
@@ -93,14 +167,20 @@
                 {{ item.direct ? "mdi-check" : "mdi-close" }}</v-icon
               >
             </template>
-            <!-- Depart -->
-            <template v-slot:item.depart="{ item }"> </template>
+
             <!-- price -->
             <template v-slot:item.price="{ item }">
               <div>
-                <div class="">
+                <v-icon color="yellow" v-if="item.cheapest" small>
+                  mdi-star</v-icon
+                >
+                <span
+                  :class="
+                    item.cheapest ? 'font-weight-bold secondary--text' : ''
+                  "
+                >
                   {{ item.price }}
-                </div>
+                </span>
                 <div class="caption">
                   {{ item.quotedDate | moment("DD-MMM-YYYY [at] HH:ss") }}
                 </div>
@@ -116,33 +196,46 @@
 export default {
   data: () => ({
     data: [],
+    unfilteredData: [],
     params: {
       etd: null,
       eta: null,
       fromCity: null,
       toCity: null
     },
+    max: 5000,
+    directFilter: false,
+    priceRangeFilter: "",
+    selectedFlights: [],
     fetchingLoader: false,
     places: [],
     carriers: []
   }),
   mounted() {},
   computed: {
+    total() {
+      let total = 0;
+      _.map(this.selectedFlights, flight => {
+        total = total + _.toNumber(flight.price);
+      });
+      return total;
+    },
+
     headers() {
       let header = [
         {
-          text: "Outbound Flight",
-          sortable: false,
-          value: "outboundleg"
+          text: "Departure Flight",
+          sortable: true,
+          value: "outboundleg.departureDate"
         },
         {
-          text: "Inbound Flight",
-          sortable: false,
-          value: "outboundleg"
+          text: "Return Flight",
+          sortable: true,
+          value: "inboundleg.departureDate"
         },
         {
           text: "Direct",
-          sortable: false,
+          sortable: true,
           align: "center",
           value: "direct",
           width: "10%"
@@ -150,14 +243,14 @@ export default {
         {
           text: "Price",
           align: "right",
-          sortable: false,
+          sortable: true,
           value: "price",
           width: "20%"
         }
       ];
       return this.params.eta
         ? header
-        : _.reject(header, { text: "Inbound Flight" });
+        : _.reject(header, { text: "Return Flight" });
     }
   },
   watch: {
@@ -169,6 +262,28 @@ export default {
     }
   },
   methods: {
+    filterData() {
+      let unfilteredData = _.cloneDeep(this.unfilteredData);
+      if (this.directFilter && this.priceRangeFilter) {
+        unfilteredData = _.reject(unfilteredData, item => !item.direct);
+        unfilteredData = _.reject(unfilteredData, item => {
+          return !(item.price <= this.priceRangeFilter);
+        });
+        this.data = unfilteredData;
+      } else if (this.directFilter) {
+        unfilteredData = _.reject(unfilteredData, item => !item.direct);
+
+        this.data = unfilteredData;
+      } else if (this.priceRangeFilter) {
+        unfilteredData = _.reject(unfilteredData, item => {
+          return !(item.price <= this.priceRangeFilter);
+        });
+        debugger;
+        this.data = unfilteredData;
+      } else {
+        this.data = unfilteredData;
+      }
+    },
     getSectorInfo(response, quote, type) {
       if (quote[type]) {
         let places = response.data.Places;
@@ -201,9 +316,7 @@ export default {
     fetchFlights() {
       this.fetchingLoader = true;
       this.loading = true;
-      let api = `browseroutes/v1.0/AE/AED/en-us/${this.params.fromCity}/${
-        this.params.toCity
-      }/${this.params.etd}?query=${this.params.eta || "anytime"}`;
+      let api = `browseroutes/v1.0/AE/AED/en-us/${this.params.fromCity}/${this.params.toCity}/${this.params.etd}`;
 
       if (this.params.eta) {
         api = `browseroutes/v1.0/AE/AED/en-us/${this.params.fromCity}/${this.params.toCity}/${this.params.etd}/${this.params.eta}`;
@@ -216,9 +329,10 @@ export default {
 
             let results = [];
 
-            _.map(quotes, item => {
+            _.map(quotes, (item, i) => {
               let obj = {};
-
+              obj.id = i;
+              obj.cheapest = false;
               obj.price = item.MinPrice;
               obj.direct = item.Direct;
               obj.quotedDate = item.QuoteDateTime;
@@ -233,7 +347,23 @@ export default {
 
               results.push(obj);
             });
+
+            let cheapest = _.minBy(results, "price");
+            _.map(results, item => {
+              if (item.id == cheapest.id) {
+                item.cheapest = true;
+              }
+            });
+            let expensive = _.maxBy(results, "price");
+            _.map(results, item => {
+              if (item.id == expensive.id) {
+                item.expensive = true;
+              }
+            });
+            this.max = expensive ? expensive.price : 10000;
+
             this.data = results;
+            this.unfilteredData = results;
             debugger;
           }
         })
