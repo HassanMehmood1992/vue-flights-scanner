@@ -10,6 +10,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import snackbar from "@/components/snackbar";
 
 Vue.prototype.$appURL = process.env.NUXT_ENV_ENVIRONMENT == 'production' ? process.env.NUXT_APP_URL : '/';
+Vue.prototype.$currency = process.env.NUXT_ENV_CURRENCY
+Vue.prototype.$locale = process.env.NUXT_ENV_LOCALE
+Vue.prototype.$country = process.env.NUXT_ENV_COUNTRY
 
 window.moment = moment;
 

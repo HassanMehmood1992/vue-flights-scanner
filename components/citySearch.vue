@@ -198,7 +198,7 @@ export default {
       if (val && val.length >= 2) {
         this.loading = true;
         axios
-          .get(`autosuggest/v1.0/AE/AED/en-US/?query=${val}`)
+          .get(`autosuggest/v1.0/${this.$country}/${this.$currency}/${this.$locale}/?query=${val}`)
           .then(response => {
             this.items = response.data.Places;
           })

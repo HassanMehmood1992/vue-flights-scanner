@@ -21,7 +21,7 @@
         <v-card-text class="py-0 ">
           <v-layout row wrap align-center>
             <v-flex md4 sm6 xs12 class="secondary--text px-2 font-weight-bold">
-              Total Price: {{ total }}
+              Total Price: {{ total }}  {{$currency}}
             </v-flex>
             <v-flex md4 sm6 xs12>
               <v-checkbox
@@ -39,7 +39,7 @@
                 @change="filterData"
               >
                 <template v-slot:thumb-label>
-                  {{ priceRangeFilter }}
+                  {{ priceRangeFilter }} 
                 </template>
               </v-slider>
             </v-flex>
@@ -181,7 +181,7 @@
                     item.cheapest ? 'font-weight-bold secondary--text' : ''
                   "
                 >
-                  {{ item.price }}
+                  {{ item.price }} {{$currency}}
                 </span>
                 <div class="caption">
                   {{ item.quotedDate | moment("DD-MMM-YYYY [at] HH:ss") }}
@@ -318,10 +318,10 @@ export default {
     fetchFlights() {
       this.fetchingLoader = true;
       this.loading = true;
-      let api = `browseroutes/v1.0/AE/AED/en-us/${this.params.fromCity}/${this.params.toCity}/${this.params.etd}`;
+      let api = `browseroutes/v1.0/${this.$country}/${this.$currency}/${this.$locale}/${this.params.fromCity}/${this.params.toCity}/${this.params.etd}`;
 
       if (this.params.eta) {
-        api = `browseroutes/v1.0/AE/AED/en-us/${this.params.fromCity}/${this.params.toCity}/${this.params.etd}/${this.params.eta}`;
+        api = `browseroutes/v1.0/${this.$country}/${this.$currency}/${this.$locale}/${this.params.fromCity}/${this.params.toCity}/${this.params.etd}/${this.params.eta}`;
       }
       axios
         .get(api)
