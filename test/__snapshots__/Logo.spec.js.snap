@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header is fully functional 1`] = `
+<div
+  class="v-input theme--light v-text-field v-select v-autocomplete"
+>
+  <div
+    class="v-input__control"
+  >
+    <div
+      aria-expanded="false"
+      aria-haspopup="listbox"
+      aria-owns="list-4"
+      class="v-input__slot"
+      role="combobox"
+    >
+      <div
+        class="v-select__slot"
+      >
+        <label
+          class="v-label theme--light"
+          for="input-4"
+          style="left: 0px; position: absolute;"
+        >
+          <span>
+            Foobar
+          </span>
+           
+          <!---->
+        </label>
+        <input
+          autocomplete="off"
+          id="input-4"
+          name="airportSearch"
+          type="text"
+        />
+        <div
+          class="v-input__append-inner"
+        >
+          <div
+            class="v-input__icon v-input__icon--append"
+          >
+            <i
+              aria-hidden="true"
+              class="v-icon notranslate mdi mdi-menu-down theme--light"
+            />
+          </div>
+        </div>
+        <input
+          name="airportSearch"
+          type="hidden"
+        />
+      </div>
+      <div
+        class="v-menu"
+      >
+        <!---->
+      </div>
+    </div>
+    <div
+      class="v-text-field__details"
+    >
+      <div
+        class="v-messages theme--light"
+      >
+        <transition-group-stub
+          class="v-messages__wrapper"
+          name="message-transition"
+          tag="div"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
