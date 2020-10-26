@@ -167,22 +167,6 @@ export default {
   },
 
   watch: {
-    // setAirports: {
-    //   immediate: true,
-    //   handler() {
-    //     if (this.setAirports) {
-    //       // if (!this.multiple) this.getAirportById(this.setAirports);
-    //       // else this.getAirportByIds(this.setAirports);
-    //       if (!this.multiple) {
-    //         this.items = [this.setAirports];
-    //       } else {
-    //         this.items = this.setAirports;
-    //       }
-
-    //       //this.val = this.setAirports;
-    //     }
-    //   },
-    // },
     searchInput: {
       immediate: false,
       handler() {

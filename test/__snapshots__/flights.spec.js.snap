@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Flights page is fully functional 1`] = `
+<v-layout-stub
+  class="my-10"
+  row=""
+  tag="div"
+  wrap=""
+>
+  <v-flex-stub
+    class="mx-auto"
+    sm8=""
+    tag="div"
+  >
+    <v-card-stub
+      class="mx-2"
+      loaderheight="4"
+      tag="div"
+    >
+      <v-card-text-stub
+        class="pb-0"
+      >
+        <v-btn-stub
+          activeclass=""
+          tag="button"
+          text="true"
+          to="/home"
+          type="button"
+        >
+           ← Back
+        </v-btn-stub>
+      </v-card-text-stub>
+       
+      <v-card-text-stub>
+        <v-flex-stub
+          tag="div"
+        >
+          <v-layout-stub
+            class="px-2"
+            row=""
+            tag="div"
+          >
+            <v-flex-stub
+              tag="div"
+            >
+              <h2>
+                Flight Scanner
+              </h2>
+               
+              <p>
+                
+                Found
+                
+                <span
+                  class="secondary--text"
+                >
+                  0
+                </span>
+                 flights
+              
+              </p>
+            </v-flex-stub>
+          </v-layout-stub>
+        </v-flex-stub>
+      </v-card-text-stub>
+       
+      <v-card-text-stub
+        class="py-0 "
+      >
+        <v-layout-stub
+          align-center=""
+          row=""
+          tag="div"
+          wrap=""
+        >
+          <v-flex-stub
+            class="secondary--text px-2 font-weight-bold"
+            md4=""
+            sm6=""
+            tag="div"
+            xs12=""
+          >
+            
+            Total Price: 0  
+          
+          </v-flex-stub>
+           
+          <v-flex-stub
+            md4=""
+            sm6=""
+            tag="div"
+            xs12=""
+          >
+            <v-checkbox-stub
+              backgroundcolor=""
+              errorcount="1"
+              errormessages=""
+              indeterminateicon="$checkboxIndeterminate"
+              label="Direct"
+              messages=""
+              officon="$checkboxOff"
+              onicon="$checkboxOn"
+              ripple="true"
+              rules=""
+              successmessages=""
+              valuecomparator="function deepEqual(a, b) {
+  if (a === b) return true;
+
+  if (a instanceof Date && b instanceof Date && a.getTime() !== b.getTime()) {
+    // If the values are Date, compare them as timestamps
+    return false;
+  }
+
+  if (a !== Object(a) || b !== Object(b)) {
+    // If the values aren't objects, they were already checked for equality
+    return false;
+  }
+
+  var props = Object.keys(a);
+
+  if (props.length !== Object.keys(b).length) {
+    // Different number of props, don't bother to check
+    return false;
+  }
+
+  return props.every(function (p) {
+    return deepEqual(a[p], b[p]);
+  });
+}"
+            />
+          </v-flex-stub>
+           
+          <v-flex-stub
+            class="px-2"
+            md4=""
+            sm6=""
+            tag="div"
+            xs12=""
+          >
+            <v-slider-stub
+              backgroundcolor=""
+              errorcount="1"
+              errormessages=""
+              hidedetails="true"
+              label="Price"
+              loaderheight="2"
+              max="5000"
+              messages=""
+              min="0"
+              rules=""
+              step="1"
+              successmessages=""
+              thumbsize="32"
+              ticklabels=""
+              ticksize="2"
+              value=""
+            />
+          </v-flex-stub>
+        </v-layout-stub>
+      </v-card-text-stub>
+       
+      <v-divider-stub />
+       
+      <v-card-text-stub
+        class="px-0"
+      >
+        <v-data-table-stub
+          class="custom-data-table"
+          customfilter="function defaultFilter(value, search, item) {
+  return value != null && search != null && typeof value !== 'boolean' && value.toString().toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) !== -1;
+}"
+          customgroup="function groupItems(items, groupBy, groupDesc) {
+  var key = groupBy[0];
+  var groups = [];
+  var current = null;
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    var val = getObjectValueByPath(item, key);
+
+    if (current !== val) {
+      current = val;
+      groups.push({
+        name: val,
+        items: []
+      });
+    }
+
+    groups[groups.length - 1].items.push(item);
+  }
+
+  return groups;
+}"
+          customsort="function sortItems(items, sortBy, sortDesc, locale, customSorters) {
+  if (sortBy === null || !sortBy.length) return items;
+  var stringCollator = new Intl.Collator(locale, {
+    sensitivity: 'accent',
+    usage: 'sort'
+  });
+  return items.sort(function (a, b) {
+    var _a, _b;
+
+    for (var i = 0; i < sortBy.length; i++) {
+      var sortKey = sortBy[i];
+      var sortA = getObjectValueByPath(a, sortKey);
+      var sortB = getObjectValueByPath(b, sortKey);
+
+      if (sortDesc[i]) {
+        _a = __read([sortB, sortA], 2), sortA = _a[0], sortB = _a[1];
+      }
+
+      if (customSorters && customSorters[sortKey]) {
+        var customResult = customSorters[sortKey](sortA, sortB);
+        if (!customResult) continue;
+        return customResult;
+      } // Check if both cannot be evaluated
+
+
+      if (sortA === null && sortB === null) {
+        continue;
+      }
+
+      _b = __read([sortA, sortB].map(function (s) {
+        return (s || '').toString().toLocaleLowerCase();
+      }), 2), sortA = _b[0], sortB = _b[1];
+
+      if (sortA !== sortB) {
+        if (!isNaN(sortA) && !isNaN(sortB)) return Number(sortA) - Number(sortB);
+        return stringCollator.compare(sortA, sortB);
+      }
+    }
+
+    return 0;
+  });
+}"
+          expanded=""
+          expandicon="$expand"
+          groupby=""
+          groupdesc=""
+          headers="[object Object],[object Object],[object Object]"
+          itemclass=""
+          itemkey="id"
+          items=""
+          itemsperpage="10"
+          loaderheight="4"
+          loading="true"
+          loadingtext="$vuetify.dataIterator.loadingText"
+          locale="en-US"
+          mobilebreakpoint="600"
+          nodatatext="$vuetify.noDataText"
+          noresultstext="$vuetify.dataIterator.noResultsText"
+          options="[object Object]"
+          page="1"
+          selectablekey="isSelectable"
+          serveritemslength="-1"
+          showselect="true"
+          sortby=""
+          sortdesc=""
+          value=""
+        />
+      </v-card-text-stub>
+    </v-card-stub>
+  </v-flex-stub>
+</v-layout-stub>
+`;

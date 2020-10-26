@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page is fully functional 1`] = `
+<v-layout-stub
+  class="my-10"
+  row=""
+  tag="div"
+  wrap=""
+>
+  <v-flex-stub
+    class="mx-auto"
+    sm6=""
+    tag="div"
+  >
+    <v-card-stub
+      class="mx-2"
+      loaderheight="4"
+      tag="div"
+    >
+      <v-card-text-stub
+        class="pa-0"
+      >
+        <v-flex-stub
+          class="text-center"
+          tag="div"
+        >
+          <v-avatar-stub
+            color="grey lighten-4 my-2"
+            size="100"
+          >
+            <v-icon-stub
+              x-large=""
+              xlarge=""
+            >
+              mdi-airplane
+            </v-icon-stub>
+          </v-avatar-stub>
+           
+          <h2
+            class="py-3"
+          >
+            Welcome To Flight Scanner
+          </h2>
+           
+          <p>
+            Search your favorite flights here ! Its Simple and Easy
+          </p>
+        </v-flex-stub>
+      </v-card-text-stub>
+       
+      <v-divider-stub />
+       
+      <v-card-text-stub
+        class="text-center pb-0"
+      >
+        <v-btn-toggle-stub
+          activeclass="v-item--active"
+          class="custom-toggle"
+          mandatory="true"
+          value="oneway"
+        >
+          <v-btn-stub
+            activeclass=""
+            small="true"
+            tag="button"
+            type="button"
+            value="oneway"
+          >
+            One Way
+          </v-btn-stub>
+           
+          <v-btn-stub
+            activeclass=""
+            small="true"
+            tag="button"
+            type="button"
+            value="roundtrip"
+          >
+            Round Trip
+          </v-btn-stub>
+        </v-btn-toggle-stub>
+      </v-card-text-stub>
+       
+      <v-card-text-stub>
+        <v-form-stub>
+          <v-layout-stub
+            row=""
+            tag="div"
+          >
+            <v-flex-stub
+              class="pa-2"
+              sm6=""
+              tag="div"
+            >
+              <city-search-stub
+                clearable="true"
+                dense="true"
+                label="From"
+                outlined="true"
+                placeholder="Search by name"
+                required="true"
+                rules="function (value) {
+        /* istanbul ignore next */
+        cov_f8if2b8uy().f[7]++;
+        cov_f8if2b8uy().s[20]++;
+        return (
+          /* istanbul ignore next */
+          (cov_f8if2b8uy().b[4][0]++, !!value) ||
+          /* istanbul ignore next */
+          (cov_f8if2b8uy().b[4][1]++, 'From city is required.')
+        );
+      }"
+              />
+            </v-flex-stub>
+             
+            <v-flex-stub
+              class="pa-2"
+              sm6=""
+              tag="div"
+            >
+              <city-search-stub
+                clearable="true"
+                dense="true"
+                label="To"
+                outlined="true"
+                placeholder="Search by name"
+                required="true"
+                rules="function (value) {
+        /* istanbul ignore next */
+        cov_f8if2b8uy().f[11]++;
+        cov_f8if2b8uy().s[24]++;
+        return (
+          /* istanbul ignore next */
+          (cov_f8if2b8uy().b[5][0]++, !!value) ||
+          /* istanbul ignore next */
+          (cov_f8if2b8uy().b[5][1]++, 'To city is required.')
+        );
+      }"
+              />
+            </v-flex-stub>
+             
+            <v-flex-stub
+              class="pa-2"
+              sm6=""
+              tag="div"
+            >
+              <v-menu-stub
+                closedelay="0"
+                closeonclick="true"
+                contentclass=""
+                maxheight="auto"
+                maxwidth="auto"
+                minwidth="290px"
+                nudgebottom="5"
+                nudgeleft="0"
+                nudgeright="0"
+                nudgetop="0"
+                nudgewidth="0"
+                offsety="true"
+                opendelay="0"
+                openonclick="true"
+                origin="top left"
+                transition="scale-transition"
+              >
+                 
+                <v-date-picker-stub
+                  eventcolor="warning"
+                  firstdayofweek="0"
+                  localefirstdayofyear="0"
+                  min="2020-10-26"
+                  nexticon="$next"
+                  nextmontharialabel="$vuetify.datePicker.nextMonthAriaLabel"
+                  nextyeararialabel="$vuetify.datePicker.nextYearAriaLabel"
+                  previcon="$prev"
+                  prevmontharialabel="$vuetify.datePicker.prevMonthAriaLabel"
+                  prevyeararialabel="$vuetify.datePicker.prevYearAriaLabel"
+                  selecteditemstext="$vuetify.datePicker.itemsSelected"
+                  showcurrent="true"
+                  type="date"
+                  width="290"
+                />
+              </v-menu-stub>
+            </v-flex-stub>
+             
+            <!---->
+          </v-layout-stub>
+           
+          <v-layout-stub
+            align-center=""
+            justify-center=""
+            tag="div"
+          >
+            <v-flex-stub
+              class="px-2"
+              sm6=""
+              tag="div"
+            >
+              <v-btn-stub
+                activeclass=""
+                block="true"
+                color="secondary"
+                id="search"
+                tag="button"
+                type="button"
+              >
+                Search Flights
+              </v-btn-stub>
+               
+              <v-btn-stub
+                activeclass=""
+                block="true"
+                class="my-2"
+                color="secondary"
+                tag="button"
+                text="true"
+                type="button"
+              >
+                
+                Reset
+              </v-btn-stub>
+            </v-flex-stub>
+          </v-layout-stub>
+        </v-form-stub>
+      </v-card-text-stub>
+    </v-card-stub>
+  </v-flex-stub>
+</v-layout-stub>
+`;
