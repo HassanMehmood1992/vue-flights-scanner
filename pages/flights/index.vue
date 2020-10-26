@@ -195,6 +195,7 @@
   </v-layout>
 </template>
 <script>
+import * as _ from 'lodash'
 export default {
   data: () => ({
     data: [],
@@ -265,6 +266,7 @@ export default {
   },
   methods: {
     filterData() {
+      this.selectedFlights = [] // reset any selected one
       let unfilteredData = _.cloneDeep(this.unfilteredData);
       if (this.directFilter && this.priceRangeFilter) {
         unfilteredData = _.reject(unfilteredData, item => !item.direct);
@@ -280,7 +282,6 @@ export default {
         unfilteredData = _.reject(unfilteredData, item => {
           return !(item.price <= this.priceRangeFilter);
         });
-        debugger;
         this.data = unfilteredData;
       } else {
         this.data = unfilteredData;
@@ -366,7 +367,6 @@ export default {
 
             this.data = results;
             this.unfilteredData = results;
-            debugger;
           }
         })
         .finally(() => {

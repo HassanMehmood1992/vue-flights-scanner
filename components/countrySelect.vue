@@ -171,7 +171,6 @@ export default {
       axios
         .get("reference/v1.0/countries/en-US")
         .then(response => {
-          debugger;
           this.items = _.sortBy(response.data.Countries, ["Name"]);
           if (this.countryCode) {
             let company = _.filter(this.items, { id: this.countryCode });

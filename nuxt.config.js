@@ -62,7 +62,7 @@ export default {
       light: true,
       themes: {
         light: {
-          primary: "#1A237E",
+          primary: "#263238",
           secondary: '#009b91',
           accent: "#d68e25",
           gred: "#EA4335",

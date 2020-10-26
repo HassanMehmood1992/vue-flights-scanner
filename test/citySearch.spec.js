@@ -18,7 +18,7 @@ beforeEach(() => {
         }),
         localVue,
         vuetify,
-        propsData: { label: 'Foobar' },
+        propsData: { label: 'Test Title' },
     })
 })
 
@@ -26,22 +26,20 @@ afterEach(() => {
     wrapper.destroy()
 })
 
-describe('Header', () => {
+describe('City search component', () => {
   
     test('is fully functional', () => {
         expect(wrapper.element).toMatchSnapshot()
     })
-    test('should have a custom title and match snapshot', () => {
+    test('should have a custom title', () => {
 
       // With jest we can create snapshot files of the HTML output
       // expect(wrapper.html()).toMatchSnapshot()
   
       // We could also verify this differently
       // by checking the text content
-      
-      debugger
       const title = wrapper.find('.v-select__slot > label > span')
       
-      expect(title.element.innerHTML).toBe('Foobar')
+      expect(title.element.innerHTML).toBe('Test Title')
     })
 })

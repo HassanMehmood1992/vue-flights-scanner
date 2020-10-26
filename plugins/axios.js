@@ -18,7 +18,6 @@ export default ({ store, redirect }) => {
   };
 
   const errorHandler = error => {
-    debugger
     store.dispatch("pageHeader/setTopLoader", false);
     window.getApp.snackbar.config = {
       show: true,

@@ -122,7 +122,7 @@
 
             <v-layout align-center justify-center>
               <v-flex sm6 class="px-2">
-                <v-btn color="secondary" block @click="searchFlights"
+                <v-btn id="search" color="secondary" block @click="searchFlights"
                   >Search Flights</v-btn
                 >
                 <v-btn
@@ -163,7 +163,6 @@ export default {
   methods: {
     searchFlights() {
       if (this.$refs.searchForm.validate()) {
-        debugger;
         let params = _.cloneDeep(this.params);
         params = _.pickBy(params, _.identity);
         this.$router.push({ name: "flights", query: params });
