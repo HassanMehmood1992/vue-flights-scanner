@@ -27,4 +27,4 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 # Screen Shots
 
-![alt text](https://user-images.githubusercontent.com/17563392/97140841-ee81dd00-1776-11eb-8ff7-223767e26314.png?raw=true)
+![alt text](https://user-images.githubusercontent.com/17563392/97218870-b31cf800-17e2-11eb-8dbf-ee14d05c5b43.png?raw=true)
